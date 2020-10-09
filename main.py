@@ -5,6 +5,7 @@
 import keyword
 import xlrd
 import xml.etree.ElementTree as ET
+from xml.dom import minidom
 
 # 解析xliff的nameSpace Xliff版本变更请更改这里
 ns = dict(xliffNameSpace='urn:oasis:names:tc:xliff:document:1.2')
@@ -51,12 +52,41 @@ def readExcel():
 
 
 def readXliff():
+    ET.register_namespace('','urn:oasis:names:tc:xliff:document:1.2')
     tree = ET.parse(xliffPath)
     root = tree.getroot()
     print(root.tag)
-    files = root.findall('xliffNameSpace:file', ns)
-    print(files)
+    for file in root.findall('xliffNameSpace:file', ns):
+        body = file.find('xliffNameSpace:body', ns)
+        for unit in body.findall('xliffNameSpace:trans-unit', ns):
+            source = unit.find('xliffNameSpace:source', ns)
+            # print(source.text)
+            target = unit.find('xliffNameSpace:target', ns)
+            if target is None:
+                #创建target
+                node = ET.SubElement(unit, "target")
+                node.text = source.text
+                node.tail = '\t\n\t'
+                print('create success')
+            # else:
+            #     print(target.text)
+            #
+            # target = unit.find('xliffNameSpace:target', ns)
+            # target.text = str("123")
+    # tree.write(xliffPath, 'UTF-8')
+    saveXML(root, xliffPath)
 
+
+def subElement(root, tag, text):
+    ele = ET.SubElement(root, tag)
+    ele.text = text
+
+#不再换行
+def saveXML(root, filename, indent="\t", newl="", encoding="utf-8"):
+    rawText = ET.tostring(root)
+    dom = minidom.parseString(rawText)
+    with open(filename, 'w') as f:
+        dom.writexml(f, "", indent, newl, encoding)
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
