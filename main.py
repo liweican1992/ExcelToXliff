@@ -1,21 +1,21 @@
-# This is a sample Python script.
 
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
 import keyword
 import xlrd
+import xml.etree.ElementTree as ET
 
+# 解析xliff的nameSpace Xliff版本变更请更改这里
+ns = dict(xliffNameSpace='urn:oasis:names:tc:xliff:document:1.2')
+# excel地址
+excelPath = r'/Users/cc/Desktop/One所有文案.xlsx'
 
-# def print_hi(name):
-#     # Use a breakpoint in the code line below to debug your script.
-#     dict = {"name":"cc", "age":22}
-#     print(dict)
-#     del dict["name"]
-#     print(dict)
+# xliff地址
+xliffPath = r'/Users/cc/Desktop/UDictionary/ja.xcloc/Localized Contents/ja.xliff'
 
 def readExcel():
-    data = xlrd.open_workbook(r"/Users/cc/Desktop/One所有文案.xlsx")
+    data = xlrd.open_workbook(excelPath)
     # print(data.sheet_names())
     # 拿到索引 默认是在第一个
     sheet1 = data.sheet_by_index(0)
@@ -50,13 +50,15 @@ def readExcel():
     print(dict)
 
 
-def readXML():
-    print("readXML")
+def readXliff():
+    tree = ET.parse(xliffPath)
+    root = tree.getroot()
+    print(root.tag)
+    files = root.findall('xliffNameSpace:file', ns)
+    print(files)
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    # print_hi('666')
-    readExcel()
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    # readExcel()
+    readXliff()
