@@ -39,4 +39,7 @@ targetName = "Indonesian"
 
 ![image](1.png)
 
+Excel格式如图
+
+![image](2.png)
 
