@@ -38,10 +38,10 @@ def readExcel():
     for k in range(len(row_0)):
         if row_0[k] == sourceName:
             sourceIndex = k
-            print(sourceName + "所在索引 " + str(k))
+            print(sourceName + " 所在索引 " + str(k))
         elif row_0[k] == targetName:
             targetIndex = k
-            print(targetName + "所在索引 " + str(k))
+            print(targetName + " 所在索引 " + str(k))
 
     if sourceIndex == -1:
         print('未找到English Index')
@@ -102,7 +102,7 @@ def subElement(root, tag, text):
     ele.text = text
 
 
-# 不再换行
+# 格式优化 不再换行
 def saveXML(root, filename, indent="\t", newl="", encoding="utf-8"):
     rawText = ET.tostring(root)
     dom = minidom.parseString(rawText)
