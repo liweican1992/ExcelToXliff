@@ -61,8 +61,8 @@ def readExcel():
 
 
 def writeXliff(dict):
-    # 重写nameSpace
     print('读取xliff文件')
+    # 重写nameSpace
     ET.register_namespace('', 'urn:oasis:names:tc:xliff:document:1.2')
     # 拿到根节点
     tree = ET.parse(xliffPath)
@@ -76,7 +76,7 @@ def writeXliff(dict):
             source = unit.find('xliffNameSpace:source', ns)
             # print(source.text)
             target = unit.find('xliffNameSpace:target', ns)
-            # target不存在就创建 在excel中填写疑问 否则写入原文
+            # target不存在就创建 在excel中填写译文 否则写入原文
             if target is None:
                 # 创建target
                 node = ET.SubElement(unit, "target")
