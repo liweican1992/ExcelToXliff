@@ -19,6 +19,8 @@ xliffPath = r'/Users/cc/Desktop/UDictionary/id.xcloc/Localized Contents/id.xliff
 # 目标语言 需要和excel中一致
 targetName = "Indonesian"
 
+# sheetName 从哪个表读取，找不到会默认读取第一个表
+sheetName = "sheet1"
 
 def readExcel():
     if not os.path.exists(excelPath):
@@ -30,6 +32,10 @@ def readExcel():
     data = xlrd.open_workbook(excelPath)
     # 拿到索引 默认是在sheet0
     sheet1 = data.sheet_by_index(0)
+    if sheetName in data.sheet_names():
+        sheet1 = data.sheet_by_name(sheetName)
+    else:
+        print("sheetName不存在 默认读取第一个")
 
     # 在这里修改语言
     sourceName = "English"
