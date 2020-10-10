@@ -47,7 +47,7 @@ def readExcel():
         row_value = sheet1.cell_value(i, targetIndex)
         row_key = sheet1.cell_value(i, sourceIndex)
         dict[row_key] = row_value
-    print(dict)
+    # print(dict)
     #读取Xliff
     readXliff(dict)
 
@@ -59,7 +59,7 @@ def readXliff(dict):
     #拿到根节点
     tree = ET.parse(xliffPath)
     root = tree.getroot()
-    print(root.tag)
+    # print(root.tag)
     for file in root.findall('xliffNameSpace:file', ns):
         body = file.find('xliffNameSpace:body', ns)
         for unit in body.findall('xliffNameSpace:trans-unit', ns):
@@ -77,8 +77,6 @@ def readXliff(dict):
                 node.tail = '\n\t'
                 print('create success')
             elif source.text in dict:
-                if source.text == 'Click to Refresh':
-                    print(dict[source.text])
                 target.text = dict[source.text]
     saveXML(root, xliffPath)
     print('write success')
