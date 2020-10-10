@@ -35,6 +35,7 @@ targetName = "Indonesian"
 
 ```
 
-
+运行Python需要xlrd库
+![image](https://gitlab.corp.youdao.com/liwc/excelToXilff/blod/master/1.png)
 
 
