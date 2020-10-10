@@ -10,10 +10,10 @@ from xml.dom import minidom
 # 解析xliff的nameSpace Xliff版本变更请更改这里
 ns = dict(xliffNameSpace='urn:oasis:names:tc:xliff:document:1.2')
 # excel地址
-excelPath = r'/Users/cc/Desktop/One所有文案.xlsx'
+excelPath = r'/Users/cc/Downloads/One所有文案 (2).xlsx'
 
 # xliff地址
-xliffPath = r'/Users/cc/Desktop/UDictionary/ja.xcloc/Localized Contents/ja.xliff'
+xliffPath = r'/Users/cc/Desktop/UDictionary/id.xcloc/Localized Contents/id.xliff'
 
 def readExcel():
     data = xlrd.open_workbook(excelPath)
@@ -47,12 +47,16 @@ def readExcel():
         row_value = sheet1.cell_value(i, targetIndex)
         row_key = sheet1.cell_value(i, sourceIndex)
         dict[row_key] = row_value
-
     print(dict)
+    #读取Xliff
+    readXliff(dict)
 
 
-def readXliff():
+
+def readXliff(dict):
+    # 重写nameSpace
     ET.register_namespace('','urn:oasis:names:tc:xliff:document:1.2')
+    #拿到根节点
     tree = ET.parse(xliffPath)
     root = tree.getroot()
     print(root.tag)
@@ -62,19 +66,22 @@ def readXliff():
             source = unit.find('xliffNameSpace:source', ns)
             # print(source.text)
             target = unit.find('xliffNameSpace:target', ns)
+            #target不存在就创建 在excel中填写疑问 否则写入原文
             if target is None:
                 #创建target
                 node = ET.SubElement(unit, "target")
-                node.text = source.text
-                node.tail = '\t\n\t'
+                if source.text in dict:
+                    node.text = dict[source.text]
+                else:
+                    node.text = source.text
+                node.tail = '\n\t'
                 print('create success')
-            # else:
-            #     print(target.text)
-            #
-            # target = unit.find('xliffNameSpace:target', ns)
-            # target.text = str("123")
-    # tree.write(xliffPath, 'UTF-8')
+            elif source.text in dict:
+                if source.text == 'Click to Refresh':
+                    print(dict[source.text])
+                target.text = dict[source.text]
     saveXML(root, xliffPath)
+    print('write success')
 
 
 def subElement(root, tag, text):
@@ -90,5 +97,5 @@ def saveXML(root, filename, indent="\t", newl="", encoding="utf-8"):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    # readExcel()
-    readXliff()
+    readExcel()
+    # readXliff()
