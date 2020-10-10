@@ -16,6 +16,9 @@ excelPath = r'/Users/cc/Downloads/One所有文案.xlsx'
 # xliff地址
 xliffPath = r'/Users/cc/Desktop/UDictionary/id.xcloc/Localized Contents/id.xliff'
 
+# 目标语言 需要和excel中一致
+targetName = "Indonesian"
+
 
 def readExcel():
     if not os.path.exists(excelPath):
@@ -30,7 +33,6 @@ def readExcel():
 
     # 在这里修改语言
     sourceName = "English"
-    targetName = "Indonesian"
     sourceIndex = -1
     targetIndex = -1
     # 确定Index
