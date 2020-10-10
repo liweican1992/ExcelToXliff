@@ -33,6 +33,9 @@ xliffPath = r'/Users/cc/Desktop/UDictionary/id.xcloc/Localized Contents/id.xliff
 # 目标语言 需要和excel中一致
 targetName = "Indonesian"
 
+# sheetName 从哪个表读取，找不到会默认读取第一个表
+sheetName = "sheet1"
+
 ```
 
 运行Python需要xlrd库
