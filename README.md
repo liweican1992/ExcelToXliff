@@ -2,9 +2,7 @@
 
 ## 背景
     
-国际词典iOS端的海外项目目前有 U-Dictionary 和 One Translate
-
-支持十几种语言的国际化
+目前负责的海外项目支持十几种语言的国际化
 
 Apple使用Xliff管理国际化文案，虽然可以直接交付Xliff文件给人工翻译组。
 
