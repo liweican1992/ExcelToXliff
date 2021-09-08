@@ -14,27 +14,30 @@ Apple使用Xliff管理国际化文案，虽然可以直接交付Xliff文件给�
     
 所以用Python3.8写了一个批量录入脚本
 
+update:新增了shell脚本
+
+支持批量从xcode导出xliff
+执行python脚本批量录入文案
+批量导入Xcode
+
 ## 使用
 
-下载xliff.py文件
+1、确保excel在桌面，文件名为localizable.xls
 
-替换下面四个参数即可
+2、文案表名为ios或者为第一个表
 
-```
+3、执行Localization.sh脚本
 
-# excel地址
-excelPath = r'/Users/cc/Downloads/One所有文案.xlsx'
+执行方法
 
-# xliff地址
-xliffPath = r'/Users/cc/Desktop/UDictionary/id.xcloc/Localized Contents/id.xliff'
-
-# 目标语言 需要和excel中一致
-targetName = "Indonesian"
-
-# sheetName 从哪个表读取，找不到会默认读取第一个表
-sheetName = "sheet1"
+打开terminal在开发目录或者Localization.sh目录下
 
 ```
+chmod +x Localization.sh
+./Localization.sh
+```
+
+
 
 运行Python需要xlrd库
 
