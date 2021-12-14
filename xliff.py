@@ -2,6 +2,8 @@
 
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+# liweican@rd.netease.com
+
 import keyword
 import xlrd
 import xml.etree.ElementTree as ET
@@ -13,10 +15,10 @@ ns = dict(xliffNameSpace='urn:oasis:names:tc:xliff:document:1.2')
 
 # excel地址
 excelPath = os.path.join(os.path.expanduser("~"), 'Desktop/localizable.xlsx')
-
+# xliff根目录
 xliffRootPath = os.path.join(os.path.expanduser("~"), 'Desktop/exportLoaclization')
-
-languages = {"Spanish" : "es", "Portuguese" : "pt", "Indonesian" : "id", "Arabic" : "ar", "Japanese" : "ja", "Vietnam" : "vi-VN"}
+# 语言list
+languages = {"Spanish" : "es", "Portuguese" : "pt", "Indonesian" : "id", "Arabic" : "ar", "Japanese" : "ja", "Vietnam" : "vi-VN", "German" : "de", "French" : "fr"}
 
 # 目标语言 需要和excel中一致
 targetName = ""
@@ -88,10 +90,16 @@ def readExcel():
 
 
 def writeXliff(dict, targetName):
-    print('读取'+targetName+'xliff文件')
+    print('========================')
+    print('读取 '+targetName+' xliff文件')
     lan = languages[targetName]
     xliffPath = os.path.join(xliffRootPath, lan+'.xcloc/Localized Contents/'+lan+'.xliff')
     print(xliffPath)
+
+    if not os.path.exists(xliffPath):
+        print('xliffPath路径不存在')
+        return
+    print('开始解析xliff')
     # 重写nameSpace
     ET.register_namespace('', 'urn:oasis:names:tc:xliff:document:1.2')
     # 拿到根节点
@@ -109,7 +117,7 @@ def writeXliff(dict, targetName):
             # target不存在就创建 在excel中填写译文 否则写入原文
             if target is None:
                 # 创建target
-                print("target为空")
+                print(source.text + "target为空")
                 node = ET.SubElement(unit, "target")
                 if source.text in dict:
                     node.text = dict[source.text]
@@ -122,7 +130,15 @@ def writeXliff(dict, targetName):
             elif source.text in dict:
                 target.text = dict[source.text]
                 count += 1
+            elif target.text is None:
+                print('*************************')
+                print("target为空字符串，填充source")
+                target.text = source.text
+                count += 1
 
+
+
+    print('========================')
     print('写入完成，共写入 ' + str(count) + ' 条数据')
     saveXML(root, xliffPath)
     print('finish')

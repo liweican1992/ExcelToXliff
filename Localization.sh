@@ -6,14 +6,16 @@
 #  Created by 李伟灿 on 2021/8/27.
 #  Copyright © 2021 com.youdao. All rights reserved.
 
+#chmod +x Localization.sh
+#./Localization.sh
 echo "=========开始执行========="
 
 
 languages=("ar"
-            #"de"
+            "de"
             "en"
             "es"
-            #"fr"
+            "fr"
             "id"
             #"it"
             "ja"
@@ -21,7 +23,7 @@ languages=("ar"
             "pt"
             #"ru"
             "vi-VN"
-            #"zh-Hant"
+            "zh-Hant"
             )
 outPath="$HOME/Desktop/exportLoaclization"
 scheme="UDictionary"
