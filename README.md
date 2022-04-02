@@ -1,5 +1,7 @@
 # ExcelToXliff
 
+> 详见：[《iOS国际化—XLIFF批量录入脚本(一键操作)》](http://leevcan.com/2020/10/12/iOS%E5%9B%BD%E9%99%85%E5%8C%96%E2%80%94Xliff%E5%BD%95%E5%85%A5%E8%84%9A%E6%9C%AC/)
+---
 ## 背景
     
 目前负责的海外项目支持十几种语言的国际化
