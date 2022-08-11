@@ -1,5 +1,8 @@
 # ExcelToXliff
 
+
+>update:升级到Xcode13以后，`Export Localizationns` 会报错，需要在`Build Setting`中设置`Use Compiler to Extract Swift Strings`为`NO`。多个targert的话每个target都设置即可。
+
 ## 背景
     
 目前负责的海外项目支持十几种语言的国际化
