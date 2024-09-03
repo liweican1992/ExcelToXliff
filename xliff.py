@@ -2,7 +2,7 @@
 
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
-# liweican@rd.netease.com
+# liweican@corp.netease.com
 
 import keyword
 import xlrd
@@ -14,11 +14,11 @@ import os
 ns = dict(xliffNameSpace='urn:oasis:names:tc:xliff:document:1.2')
 
 # excel地址
-excelPath = os.path.join(os.path.expanduser("~"), 'Desktop/localizable.xlsx')
+excelPath = os.path.join(os.path.expanduser("~"), 'Desktop/localizable-iRecord.xlsx')
 # xliff根目录
 xliffRootPath = os.path.join(os.path.expanduser("~"), 'Desktop/exportLoaclization')
 # 语言list
-languages = {"Spanish" : "es", "Portuguese" : "pt", "Indonesian" : "id", "Arabic" : "ar", "Japanese" : "ja", "Vietnam" : "vi-VN", "German" : "de", "French" : "fr"}
+languages = {"Spanish" : "es", "Portuguese" : "pt", "Indonesia" : "id", "Arabic" : "ar", "Japanese" : "ja", "Vietnamese" : "vi-VN", "German" : "de", "French" : "fr", "中文繁体" : "zh-Hant", "中文简体" : "zh-Hans","Thailand":"th", "Korean" : "ko"}
 
 # 目标语言 需要和excel中一致
 targetName = ""
@@ -105,19 +105,21 @@ def writeXliff(dict, targetName):
     # 拿到根节点
     tree = ET.parse(xliffPath)
     root = tree.getroot()
-    # print(root.tag)
+    print(root.tag)
     count = 0
     for file in root.findall('xliffNameSpace:file', ns):
-        #print('读取子文件：' + file.attrib['original'])
+        print('读取子文件：' + file.attrib['original'])
         body = file.find('xliffNameSpace:body', ns)
         for unit in body.findall('xliffNameSpace:trans-unit', ns):
             source = unit.find('xliffNameSpace:source', ns)
-            #print(source.text)
+            print(source.text)
+            if source.text is None:
+                break
             target = unit.find('xliffNameSpace:target', ns)
             # target不存在就创建 在excel中填写译文 否则写入原文
             if target is None:
                 # 创建target
-                print(source.text + "target为空")
+                print(source.text + " target为空")
                 node = ET.SubElement(unit, "target")
                 if source.text in dict:
                     node.text = dict[source.text]
@@ -129,6 +131,8 @@ def writeXliff(dict, targetName):
                 print('create success')
             elif source.text in dict:
                 target.text = dict[source.text]
+                print('*************************')
+                print("填充target======",target.text)
                 count += 1
             elif target.text is None:
                 print('*************************')
@@ -161,3 +165,4 @@ def saveXML(root, filename, indent="\t", newl="", encoding="utf-8"):
 if __name__ == '__main__':
     readExcel()
     # readXliff()
+

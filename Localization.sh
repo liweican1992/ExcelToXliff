@@ -6,12 +6,15 @@
 #  Created by 李伟灿 on 2021/8/27.
 #  Copyright © 2021 com.youdao. All rights reserved.
 
+
+#英文文案录入 可以使用Excel里面的命令
+#   =""""&A:A&""""&"="&""""&A:A&""""&";"
 #chmod +x Localization.sh
 #./Localization.sh
 echo "=========开始执行========="
 
 
-languages=("ar"
+languages=(#"ar"
             "de"
             "en"
             "es"
@@ -19,14 +22,16 @@ languages=("ar"
             "id"
             #"it"
             "ja"
-            #"ko"
+            "ko"
             "pt"
             #"ru"
-            "vi-VN"
+            #"vi-VN"
             "zh-Hant"
+            "zh-Hans"
+            "th"
             )
 outPath="$HOME/Desktop/exportLoaclization"
-scheme="UDictionary"
+scheme="iTranscribe"
 
 
 #导出xliff xcode10后为.xcloc格式文件夹
@@ -66,6 +71,8 @@ runPython(){
 #    cd $path
     chmod +x xliff.py
     python3 xliff.py
+    echo "=========正在执行Python脚本========="
+
 }
 
 importLocalizations(){
@@ -88,3 +95,4 @@ exportLocalizations
 runPython
 #导入xliff
 importLocalizations
+
