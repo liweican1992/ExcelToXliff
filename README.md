@@ -1,5 +1,6 @@
 # ExcelToXliff
 
+>update:大模型批量翻译脚本详见`autoTranslate.py`。
 
 >update:升级到Xcode13以后，`Export Localizationns` 会报错，需要在`Build Setting`中设置`Use Compiler to Extract Swift Strings`为`NO`。多个targert的话每个target都设置即可。
 
