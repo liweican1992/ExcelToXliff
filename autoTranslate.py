@@ -3,6 +3,7 @@
 #支持gpt+deepseek。请自己在本地配置DEEPSEEK_API_URL/DEEPSEEK_API_KEY/AZURE_OPENAI_ENDPOINT/AZURE_OPENAI_API_KEY 防止秘钥泄露
 #eg:
 #export AZURE_OPENAI_API_KEY="REPLACE_WITH_YOUR_KEY_VALUE_HERE"
+#这种方式只在当前Terminal中生效 如何全局生效请结合自己操作系统 自行操作！
 
 import openpyxl
 from openpyxl.styles import PatternFill
